@@ -22,6 +22,7 @@ namespace ProAgil.API
         {
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
+            services.AddCors();
             // services.AddMvc();
         }
 
@@ -34,11 +35,10 @@ namespace ProAgil.API
             }
 
             // app.UseHttpsRedirection();
-
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseRouting();
 
             app.UseAuthorization();
-            // app.UseMvc();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
